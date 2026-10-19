@@ -17,6 +17,10 @@ All three authentication views reside inside a unified single-file Streamlit app
 
 •On Failure: Displays a single, generic security notice (❌ Invalid credentials.) to prevent username/email enumeration attacks.
 
+The below images are login
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/05153f18430df78809e41239ed5f6ce5558f6b0c/Milestone1/screenshots/1.jpeg)
+
 ## 2. **Signup Page**
 
 •**Inputs**: Username, Email Address, Password, Confirm Password, Security Question (dropdown), and Security Answer (all required).
