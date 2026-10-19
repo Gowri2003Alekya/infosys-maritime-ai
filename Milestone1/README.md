@@ -19,28 +19,26 @@ All three authentication views reside inside a unified single-file Streamlit app
 •**Inputs**: Username, Email Address, Password, Confirm Password, Security Question (dropdown), and Security Answer (all required).
 
 •**Complexity Validation**:
-
-    Minimum 8 characters.
-
-    At least one uppercase letter ([A-Z]).
-    At least one lowercase letter ([a-z]).
-    At least one numeric digit ([0-9]).
-    At least one special symbol ([!@#$%^&*(),.?":{}|<>]).
-    Confirm Password must match Password identically.
-    **Uniqueness**: Username and Email have UNIQUE constraints in SQLite; duplicate signups return a clear warning.
+Minimum 8 characters.
+At least one uppercase letter ([A-Z]).
+At least one lowercase letter ([a-z]).
+At least one numeric digit ([0-9]).
+At least one special symbol ([!@#$%^&*(),.?":{}|<>]).
+Confirm Password must match Password identically.
+**Uniqueness**: Username and Email have UNIQUE constraints in SQLite; duplicate signups return a clear warning.
 
 
 3. **Forgot Password Page**
 Supports dual recovery mechanisms:
 
---**Via Security Question**: Verifies the user against their pre-registered security question and answer hash.
+•**Via Security Question**: Verifies the user against their pre-registered security question and answer hash.
 
---**Via Email OTP**: Dispatches a cryptographically secure, randomized 6-digit verification code using Gmail SMTP (valid for 5 minutes).
+•**Via Email OTP**: Dispatches a cryptographically secure, randomized 6-digit verification code using Gmail SMTP (valid for 5 minutes).
 
---**Password History Protection**: Prevents users from resetting their password to the current/active password.
+•**Password History Protection**: Prevents users from resetting their password to the current/active password.
 
 4. **Dashboards**
---**Admin Dashboard**: Displays a personalized greeting with the logged-in email and lists all registered users in an interactive table (User ID, Username, Email) without exposing password hashes.
+•**Admin Dashboard**: Displays a personalized greeting with the logged-in email and lists all registered users in an interactive table (User ID, Username, Email) without exposing password hashes.
 
 --Standard User Dashboard: Displays session status cards, platform analytics metrics, and real-time health indicator gauges.
 
