@@ -184,3 +184,6 @@ except KeyboardInterrupt:
     !pkill -f streamlit
     print("✅ Streamlit stopped.")
 ```
+
+## 📄 License 
+MIT License
