@@ -1,4 +1,5 @@
 🚢 **Agentic AI for Maritime Freight Pricing & Route Optimization**
+
 A secure, multi-tier Streamlit authentication portal featuring JWT-based session state management, SQLite credential persistence, rate-limited email OTP verification, and role-based views (Administrator vs. Standard Analytics Dashboard).
 
 📌 **Architecture & Authentication Specifications**
@@ -6,31 +7,26 @@ All three authentication views reside inside a unified single-file Streamlit app
 
 
 1. **Login Page**
---Inputs: Username/Email and Password (both required).
+•Inputs: Username/Email and Password (both required).
 
---Authentication: Validates hashed passwords using bcrypt.
+•Authentication: Validates hashed passwords using bcrypt.
 
---On Success: Issues a signed HS256 JWT session token and transitions directly to the Dashboard.
+•On Success: Issues a signed HS256 JWT session token and transitions directly to the Dashboard.
 
---On Failure: Displays a single, generic security notice (❌ Invalid credentials.) to prevent username/email enumeration attacks.
+•On Failure: Displays a single, generic security notice (❌ Invalid credentials.) to prevent username/email enumeration attacks.
 
 2. **Signup Page**
---**Inputs**: Username, Email Address, Password, Confirm Password, Security Question (dropdown), and Security Answer (all required).
+•**Inputs**: Username, Email Address, Password, Confirm Password, Security Question (dropdown), and Security Answer (all required).
 
---**Complexity Validation**:
+•**Complexity Validation**:
 
     Minimum 8 characters.
 
     At least one uppercase letter ([A-Z]).
-
     At least one lowercase letter ([a-z]).
-
     At least one numeric digit ([0-9]).
-
     At least one special symbol ([!@#$%^&*(),.?":{}|<>]).
-
     Confirm Password must match Password identically.
-
     **Uniqueness**: Username and Email have UNIQUE constraints in SQLite; duplicate signups return a clear warning.
 
 
