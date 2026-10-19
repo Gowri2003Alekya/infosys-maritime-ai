@@ -1,12 +1,14 @@
-🚢 **Agentic AI for Maritime Freight Pricing & Route Optimization**
+# 🚢 **Agentic AI for Maritime Freight Pricing & Route Optimization**
 
 A secure, multi-tier Streamlit authentication portal featuring JWT-based session state management, SQLite credential persistence, rate-limited email OTP verification, and role-based views (Administrator vs. Standard Analytics Dashboard).
 
-📌 **Architecture & Authentication Specifications**
+## 📌 **Architecture & Authentication Specifications**
+
 All three authentication views reside inside a unified single-file Streamlit application:
 
 
-1. **Login Page**
+## 1. **Login Page**
+   
 •Inputs: Username/Email and Password (both required).
 
 •Authentication: Validates hashed passwords using bcrypt.
@@ -15,7 +17,8 @@ All three authentication views reside inside a unified single-file Streamlit app
 
 •On Failure: Displays a single, generic security notice (❌ Invalid credentials.) to prevent username/email enumeration attacks.
 
-2. **Signup Page**
+## 2. **Signup Page**
+
 •**Inputs**: Username, Email Address, Password, Confirm Password, Security Question (dropdown), and Security Answer (all required).
 
 •**Complexity Validation**:
@@ -28,7 +31,7 @@ Confirm Password must match Password identically.
 **Uniqueness**: Username and Email have UNIQUE constraints in SQLite; duplicate signups return a clear warning.
 
 
-3. **Forgot Password Page**
+## 3. **Forgot Password Page**
 Supports dual recovery mechanisms:
 
 •**Via Security Question**: Verifies the user against their pre-registered security question and answer hash.
@@ -37,13 +40,14 @@ Supports dual recovery mechanisms:
 
 •**Password History Protection**: Prevents users from resetting their password to the current/active password.
 
-4. **Dashboards**
+## 4. **Dashboards**
 •**Admin Dashboard**: Displays a personalized greeting with the logged-in email and lists all registered users in an interactive table (User ID, Username, Email) without exposing password hashes.
 
---Standard User Dashboard: Displays session status cards, platform analytics metrics, and real-time health indicator gauges.
+•**Standard User Dashboard**: Displays session status cards, platform analytics metrics, and real-time health indicator gauges.
 
 
-⚙️ **Environment Setup & Configuration**
+## ⚙️ **Environment Setup & Configuration**
+
 **Step 1**: Set Up ngrok Authentication
 ngrok establishes a secure reverse proxy from Google Colab to provide a publicly accessible URL:
 
@@ -78,7 +82,7 @@ To avoid committing credentials in code, save environment parameters in the Secr
 
 <img width="2970" height="809" alt="Code_Generated_Image" src="https://github.com/user-attachments/assets/9de254fc-3cd7-4963-adbd-db69492487b4" />
 
-🚀 **Execution Instructions** (Google Colab)
+## 🚀 **Execution Instructions** (Google Colab)
 **Cell 1**: Install Dependencies
 Run the initial setup cell to download the required libraries:
 
