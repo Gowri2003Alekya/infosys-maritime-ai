@@ -6,7 +6,6 @@ A secure, multi-tier Streamlit authentication portal featuring JWT-based session
 
 All three authentication views reside inside a unified single-file Streamlit application:
 
-
 ## 1. **Login Page**
    
 •Inputs: Username/Email and Password (both required).
@@ -17,7 +16,7 @@ All three authentication views reside inside a unified single-file Streamlit app
 
 •On Failure: Displays a single, generic security notice (❌ Invalid credentials.) to prevent username/email enumeration attacks.
 
-The below images are login
+The below image shows login page
 
 ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/05153f18430df78809e41239ed5f6ce5558f6b0c/Milestone1/screenshots/1.jpeg)
 
@@ -34,8 +33,14 @@ At least one special symbol ([!@#$%^&*(),.?":{}|<>]).
 Confirm Password must match Password identically.
 **Uniqueness**: Username and Email have UNIQUE constraints in SQLite; duplicate signups return a clear warning.
 
+The below images shows Signup page
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/2.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/3.jpeg)
 
 ## 3. **Forgot Password Page**
+
 Supports dual recovery mechanisms:
 
 •**Via Security Question**: Verifies the user against their pre-registered security question and answer hash.
@@ -44,11 +49,29 @@ Supports dual recovery mechanisms:
 
 •**Password History Protection**: Prevents users from resetting their password to the current/active password.
 
+The below images shows Forgot Password Page Via Security Question & Via Email OTP
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/4.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/6.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/7.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/8.jpeg)
+
 ## 4. **Dashboards**
+
 •**Admin Dashboard**: Displays a personalized greeting with the logged-in email and lists all registered users in an interactive table (User ID, Username, Email) without exposing password hashes.
+
+The below image shows the display of Admin Dashboard
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/10.jpeg)
 
 •**Standard User Dashboard**: Displays session status cards, platform analytics metrics, and real-time health indicator gauges.
 
+The below image shows the display of Standard User Dashboard
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/9.jpeg)
 
 ## ⚙️ **Environment Setup & Configuration**
 
@@ -87,6 +110,7 @@ To avoid committing credentials in code, save environment parameters in the Secr
 <img width="2970" height="809" alt="Code_Generated_Image" src="https://github.com/user-attachments/assets/9de254fc-3cd7-4963-adbd-db69492487b4" />
 
 ## 🚀 **Execution Instructions** (Google Colab)
+
 **Cell 1**: Install Dependencies
 Run the initial setup cell to download the required libraries:
 
