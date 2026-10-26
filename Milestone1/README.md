@@ -2,82 +2,6 @@
 
 A secure, multi-tier Streamlit authentication portal featuring JWT-based session state management, SQLite credential persistence, rate-limited email OTP verification, and role-based views (Administrator vs. Standard Analytics Dashboard).
 
-## 📌 **Architecture & Authentication Specifications**
-
-All three authentication views reside inside a unified single-file Streamlit application:
-
-## 1. **Login Page**
-   
-• Inputs: Username/Email and Password (both required).
-
-• Authentication: Validates hashed passwords using bcrypt.
-
-• On Success: Issues a signed HS256 JWT session token and transitions directly to the Dashboard.
-
-• On Failure: Displays a single, generic security notice (❌ Invalid credentials.) to prevent username/email enumeration attacks.
-
-The below image shows login page
-
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/05153f18430df78809e41239ed5f6ce5558f6b0c/Milestone1/screenshots/1.jpeg)
-
-## 2. **Signup Page**
-
-• **Inputs**: Username, Email Address, Password, Confirm Password, Security Question (dropdown), and Security Answer (all required).
-
-• **Complexity Validation**:
-Minimum 8 characters.
-
-At least one uppercase letter ([A-Z]).
-
-At least one lowercase letter ([a-z]).
-
-At least one numeric digit ([0-9]).
-
-At least one special symbol ([!@#$%^&*(),.?":{}|<>]).
-
-Confirm Password must match Password identically.
-
-**Uniqueness**: Username and Email have UNIQUE constraints in SQLite; duplicate signups return a clear warning.
-
-The below images shows Signup page
-
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/2.jpeg)
-
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/3.jpeg)
-
-## 3. **Forgot Password Page**
-
-Supports dual recovery mechanisms:
-
-• **Via Security Question**: Verifies the user against their pre-registered security question and answer hash.
-
-• **Via Email OTP**: Dispatches a cryptographically secure, randomized 6-digit verification code using Gmail SMTP (valid for 5 minutes).
-
-• **Password History Protection**: Prevents users from resetting their password to the current/active password.
-
-The below images shows Forgot Password Page Via Security Question & Via Email OTP
-
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/4.jpeg)
-
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/6.jpeg)
-
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/7.jpeg)
-
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/8.jpeg)
-
-## 4. **Dashboards**
-
-• **Admin Dashboard**: Displays a personalized greeting with the logged-in email and lists all registered users in an interactive table (User ID, Username, Email) without exposing password hashes.
-
-The below image shows the display of Admin Dashboard
-
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/10.jpeg)
-
-• **Standard User Dashboard**: Displays session status cards, platform analytics metrics, and real-time health indicator gauges.
-
-The below image shows the display of Standard User Dashboard
-
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/9.jpeg)
 
 ## ⚙️ **Environment Setup & Configuration**
 
@@ -190,6 +114,83 @@ except KeyboardInterrupt:
     !pkill -f streamlit
     print("✅ Streamlit stopped.")
 ```
+
+## 📌 **Architecture & Authentication Specifications**
+
+All three authentication views reside inside a unified single-file Streamlit application:
+
+## 1. **Login Page**
+   
+• Inputs: Username/Email and Password (both required).
+
+• Authentication: Validates hashed passwords using bcrypt.
+
+• On Success: Issues a signed HS256 JWT session token and transitions directly to the Dashboard.
+
+• On Failure: Displays a single, generic security notice (❌ Invalid credentials.) to prevent username/email enumeration attacks.
+
+The below image shows login page
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/05153f18430df78809e41239ed5f6ce5558f6b0c/Milestone1/screenshots/1.jpeg)
+
+## 2. **Signup Page**
+
+• **Inputs**: Username, Email Address, Password, Confirm Password, Security Question (dropdown), and Security Answer (all required).
+
+• **Complexity Validation**:
+Minimum 8 characters.
+
+At least one uppercase letter ([A-Z]).
+
+At least one lowercase letter ([a-z]).
+
+At least one numeric digit ([0-9]).
+
+At least one special symbol ([!@#$%^&*(),.?":{}|<>]).
+
+Confirm Password must match Password identically.
+
+**Uniqueness**: Username and Email have UNIQUE constraints in SQLite; duplicate signups return a clear warning.
+
+The below images shows Signup page
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/2.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/3.jpeg)
+
+## 3. **Forgot Password Page**
+
+Supports dual recovery mechanisms:
+
+• **Via Security Question**: Verifies the user against their pre-registered security question and answer hash.
+
+• **Via Email OTP**: Dispatches a cryptographically secure, randomized 6-digit verification code using Gmail SMTP (valid for 5 minutes).
+
+• **Password History Protection**: Prevents users from resetting their password to the current/active password.
+
+The below images shows Forgot Password Page Via Security Question & Via Email OTP
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/4.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/6.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/7.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/8.jpeg)
+
+## 4. **Dashboards**
+
+• **Admin Dashboard**: Displays a personalized greeting with the logged-in email and lists all registered users in an interactive table (User ID, Username, Email) without exposing password hashes.
+
+The below image shows the display of Admin Dashboard
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/10.jpeg)
+
+• **Standard User Dashboard**: Displays session status cards, platform analytics metrics, and real-time health indicator gauges.
+
+The below image shows the display of Standard User Dashboard
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/9.jpeg)
 
 ## 📄 License 
 MIT License
