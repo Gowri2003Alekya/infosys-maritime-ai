@@ -184,13 +184,15 @@ The below images shows Forgot Password Page Via Security Question & Via Email OT
 
 The below image shows the display of Admin Dashboard
 
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/10.jpeg)
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/c8a8b4659fbcfbcfe30ac57c48d34b882d641b5b/Milestone1/screenshots/9.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/c8a8b4659fbcfbcfe30ac57c48d34b882d641b5b/Milestone1/screenshots/10.jpeg)
 
 • **Standard User Dashboard**: Displays session status cards, platform analytics metrics, and real-time health indicator gauges.
 
 The below image shows the display of Standard User Dashboard
 
-![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/736b99b4b4e56c3082343f20b5365ba82e544874/Milestone1/screenshots/9.jpeg)
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/c8a8b4659fbcfbcfe30ac57c48d34b882d641b5b/Milestone1/screenshots/11.jpeg)
 
 ## 📄 License 
 MIT License
