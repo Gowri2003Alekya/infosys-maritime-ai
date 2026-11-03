@@ -84,8 +84,18 @@ The platform implements 5 distinct operational roles defined in `rbac.py` and st
 
 > **Server-Side Enforcement**: Hiding menu tabs is insufficient for security. Directly requesting a restricted route (e.g. `GET /api/page/admin` or `POST /api/run_agent`) evaluates `need(ctx, capability)` and immediately responds with **HTTP 403 Forbidden**.
 
----
 
+---
+## Login Page
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/8c27e22d173e8acb44400f47e0f84225406d33c1/Milestone2/screenshots/login.jpeg)
+
+---
+## Signup Page
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/8c27e22d173e8acb44400f47e0f84225406d33c1/Milestone2/screenshots/signup.jpeg)
+
+---
 ## 5. Profile Page 
 
 Accessible to all authenticated users via the sidebar:
@@ -93,6 +103,8 @@ Accessible to all authenticated users via the sidebar:
 * **Credential Self-Service**: Allows users to update their display username and update their password.
 * **Password Verification Safeguard**: Updating credentials requires verifying the existing password first and enforces Milestone 2 complexity rules on the new password.
 * **Security Notice**: Explicitly ensures that passwords and cryptographic hashes are never displayed in the DOM or returned in JSON responses.
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/8c27e22d173e8acb44400f47e0f84225406d33c1/Milestone2/screenshots/profile.jpeg)
 
 ---
 
@@ -108,11 +120,17 @@ Restricted exclusively to the **Admin** role via `need(ctx, "users")`:
   * **Delete User**: Protected by confirmation. An Admin cannot delete or lock their own active account, and the last remaining Admin can never be deleted.
 * **Activity Audit Log**: Displays the latest 50 administrative actions recorded in the database, including timestamp (UTC), actor, action type, target account, and metadata details.
 
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/8c27e22d173e8acb44400f47e0f84225406d33c1/Milestone2/screenshots/admindashboard.jpeg)
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/8c27e22d173e8acb44400f47e0f84225406d33c1/Milestone2/screenshots/admindashboard1.jpeg)
+
 ---
 
 ## 7. Fine-Tuned AI Copilot (SQL-Backed)
 
 The AI Copilot operates deterministically through SQL queries without external LLM dependencies, eliminating hallucinations and ensuring zero factual divergence.
+
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/8c27e22d173e8acb44400f47e0f84225406d33c1/Milestone2/screenshots/aicopilot.jpeg)
 
 ### Tested Question Patterns & Execution Table
 
