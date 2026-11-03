@@ -1,256 +1,154 @@
-# FreightQuote AI — Milestone 2: Enterprise Authentication, RBAC & Operational Intelligence
+# FreightQuote AI — Milestone 2: Enterprise Multi-User Platform
+**Infosys Springboard Internship 7.0 · Batch 4**  
+*FastAPI · SQLite · JWT · RBAC · Google Colab · Autonomous AI Agents*
 
-**Infosys Springboard Internship 7.0 · Batch 4**
+---
 
-*Track: Full-Stack Artificial Intelligence & Enterprise Cloud Operations*
+## 1. Project Overview
 
-*Technology Stack: FastAPI · SQLite · JWT · bcrypt · Role-Based Access Control (RBAC) · Google Colab · ngrok*
+FreightQuote AI is an autonomous maritime logistics and freight pricing intelligence platform built with **FastAPI**, **SQLite**, **PyJWT**, and a single-page reactive dashboard. In Milestone 2, the application transitions from a single local administrator into an enterprise multi-user platform featuring:
+* **Unified Milestone 1 Authentication**: Full user lifecycle including registration, secure login, password complexity enforcement, security question recovery, and Gmail SMTP OTP verification.
+* **Role-Based Access Control (RBAC)**: Five distinct operational roles (`Admin`, `Operations Manager`, `Freight Broker`, `Auditor`, `Customer`) enforced at both menu routing and API capability layers (`need(ctx, capability)`).
+* **Profile Management**: Self-service user profile displaying account credentials, customer affiliation, joined date, and secure username/password updates.
+* **Comprehensive Admin Dashboard**: Centralized administration page with user provisioning, promote/demote controls, instant lock/unlock toggles, delete safeguards, and an activity audit log.
+* **Fine-Tuned AI Copilot**: Deterministic, SQL-backed conversational assistant supporting 20+ maritime question patterns, typographical normalization, SQL query transparency, and RBAC data scoping without external LLM hallucinations.
+* **Modern Maritime Design System**: Dynamic light/dark theme switch, responsive mobile navigation, glassmorphic layout, and interactive maritime cargo ship radar telemetry.
 
-## 1. Executive Summary & Architecture Overview
+---
 
-**FreightQuote AI** is an autonomous logistics and freight-management operations platform. Milestone 2 transitions the system from an open operational prototype into an enterprise-grade, secure, multi-tenant application equipped with full identity access management (IAM), strict role-based access control (RBAC), administrative audit logging, and an augmented SQL-backed conversational AI Copilot.
+## 2. Repository Structure
 
-### System Architecture
-
-The application is structured into a modular, asynchronous architecture operating inside a unified runtime:
-
-```
-                                  +---------------------------------------+
-                                  |         Client Browser / UI           |
-                                  |   (Vanilla ES6+, HTML5, Custom CSS)   |
-                                  +---------------------------------------+
-                                                     |
-                                   HTTPS / WSS (via ngrok Tunnel)
-                                                     |
-                                                     v
-+---------------------------------------------------------------------------------------------------+
-|                                  FastAPI Unified Server (server.py)                              |
-|                                                                                                   |
-|  +--------------------+  +----------------------+  +---------------------+  +------------------+  |
-|  | Authentication API |  | Role-Based Access    |  | Admin Management    |  | Static Assets    |  |
-|  | (/api/auth/*)      |  | Control (/api/page/*)|  | Dashboard (/admin)  |  | (HTML/CSS/JS)    |  |
-|  +--------------------+  +----------------------+  +---------------------+  +------------------+  |
-|            |                         |                        |                      |            |
-|            v                         v                        v                      v            |
-|  +--------------------+  +----------------------+  +---------------------+  +------------------+  |
-|  | Password Hashing   |  | Permission Verifier  |  | Audit Trail Logger  |  | AI Copilot Engine|  |
-|  | (bcrypt + JWT)     |  | need(ctx, capability)|  | (activity_log)      |  | (analyst.py)     |  |
-|  +--------------------+  +----------------------+  +---------------------+  +------------------+  |
-+---------------------------------------------------------------------------------------------------+
-                                                     |
-                                  Thread-Safe SQLite Engine (db.py)
-                                                     |
-                                                     v
-+---------------------------------------------------------------------------------------------------+
-|                                      SQLite Database Layer (freight.db)                           |
-|                                                                                                   |
-|  [users]           [auth_lockouts]     [auth_otps]        [activity_log]      [quotes]            |
-|  [shipments]       [carriers]          [weather_events]   [customs_rules]     [route_segments]    |
-+---------------------------------------------------------------------------------------------------+
-                                                     ^
-                                                     | Background Thread
-+----------------------------------------------------+----------------------------------------------+
-|                              Autonomous Agent Background Worker                                   |
-|   (Route AI · Spot Quotes · Carrier Risk · Weather Monitoring · Margin Engine · Customs Audit)    |
-+---------------------------------------------------------------------------------------------------+
-
-
-
-
-
+```text
+Milestone2/
+├── FreightQuote_Milestone2_C.ipynb   # Main Google Colab Jupyter Notebook
+├── README.md                          # Milestone 2 build & operational documentation
+└── screenshots/                       # Verification screenshots for project evaluation
+    ├── login.jpeg                     # Login portal with interactive maritime radar
+    ├── signup.jpeg                    # Sign-up page with role selection & password toggle
+    ├── profile.jpeg                   # My Profile view with account overview & security update
+    ├── admindashboard.jpeg            # Admin dashboard KPI cards & Add User form
+    ├── admindashboard1.jpeg           # Admin users management table & activity audit log
+    └── aicopilot.jpeg                 # AI Copilot answering natural language queries via SQL
 ```
 
-### Core Technology Stack
+---
 
-* **Backend Framework**: FastAPI (Asynchronous Python 3.10+) running with Uvicorn ASGI server.
+## 3. How to Run the Application
 
-* **Database**: SQLite 3 with WAL (Write-Ahead Logging) and thread-safe connection pool (`db.py`).
+### Step 1: Open in Google Colab
+1. Download the file FreightQuote_Milestone2.ipynb
+2. Select **Runtime** → **Run all** (or press `Ctrl+F9`).
 
-* **Security & Cryptography**: `bcrypt` password hashing (salt rounds: 12), `PyJWT` with HS256 algorithm.
+### Step 2: Configure Colab Secrets (Left Sidebar 🔑)
+Add the following keys under Colab Secrets for full production authentication and email OTP delivery:
+| Secret Name | Purpose | Example / Format |
+|---|---|---|
+| `JWT_SECRET` | Secret key for signing HS256 authentication JWT tokens | `supersecret-jwt-key-2026` |
+| `NGROK_AUTHTOKEN` | *(Optional)* Fallback public URL tunnel if Colab port forwarding is restricted | `2N...your_authtoken` |
+| `EMAIL_ID` | Sender Gmail address for 6-digit OTP verification codes | `yourname@gmail.com` |
+| `EMAIL_PASSWORD` | 16-character Google App Password (not your personal Gmail password) | `abcd efgh ijkl mnop` |
 
-* **Frontend**: Lightweight, dependency-free vanilla JavaScript (ES6 modules), responsive CSS Grid/Flexbox design, dynamic DOM hydration.
+> *Note: If secrets are omitted, the application generates a secure runtime fallback JWT secret and provides local security-question recovery.*
 
-* **Tunneling & Deployment**: `pyngrok` for secure ingress tunneling, compatible with Google Colab and local environments.
-
-* **AI Analytics**: Deterministic SQL intent classification engine (`analyst.py`, `qa.py`) with zero-hallucination guarantees.
-
-## 2. Setup & Execution Instructions
-
-### Prerequisites
-
-* Python 3.10 or higher (or a Google Colab GPU/Standard runtime).
-
-* An ngrok authentication token (obtainable free from [ngrok.com](https://ngrok.com)).
-
-* *(Optional)* A Gmail account with an App Password if testing SMTP email OTP delivery.
-
-### Configuration via Google Colab Secrets
-
-To maintain zero-trust security and prevent credentials from leaking into Git repositories or notebook cells, configure the following keys in Google Colab's **Secrets (🔑)** panel:
-
-| Secret Key | Description | Required? | Default / Fallback | 
-| ----- | ----- | ----- | ----- | 
-| `NGROK_AUTHTOKEN` | Your private ngrok ingress tunnel token | **Yes** | Prompts in Colab if omitted | 
-| `JWT_SECRET` | Secret key for signing JWT bearer tokens | Recommended | Auto-generates cryptographically secure key | 
-| `GMAIL_USER` | Gmail address for sending 6-digit password reset OTPs | Optional | Falls back to in-memory console OTP logging | 
-| `GMAIL_APP_PASSWORD` | 16-character Google App Password (not account password) | Optional | Console OTP fallback active if omitted | 
-
-### Step-by-Step Google Colab Execution Guide
-
-1. Open `FreightQuote_Milestone2.ipynb` in Google Colab.
-
-2. Open the **Secrets** tab on the left sidebar (key icon) and add `NGROK_AUTHTOKEN`.
-
-3. Choose **Runtime → Run all** (or press `Ctrl+F9`).
-
-4. Cell execution flow:
-
-   * **Cell 1**: Installs required dependencies (`fastapi`, `uvicorn`, `pyjwt`, `bcrypt`, `pyngrok`, `python-multipart`).
-
-   * **Cell 2**: Initializes database schema (`db.py`), pre-populates carriers, routes, customs rules, and seeds the root `admin` user.
-
-   * **Cell 3**: Defines core security modules (`auth.py`, `rbac.py`, `hardening.py`).
-
-   * **Cell 4**: Configures operational domain models (`domain_freight.py`, `analyst.py`, `qa.py`, `views_freight.py`).
-
-   * **Cell 5**: Constructs static assets (`login.html`, `admin.html`, `profile.html`, `app.js`, `style.css`).
-
-   * **Cell 6**: Launches the FastAPI server on port 8000 and initiates the background autonomous agent cycle.
-
-   * **Cell 7**: Establishes the ngrok tunnel and outputs the live public URL.
-
-5. Click the generated public ngrok URL to open the platform.
-
-## 3. Authentication & Security Specifications (Milestone 1 Integration)
-
-The authentication architecture incorporates all defensive requirements from Milestone 1, hardened with enterprise lockout controls and multi-channel account recovery.
-
-### Credential Storage & Token Management
-
-* **Password Hashing**: Stored passwords are cryptographically salted and hashed using `bcrypt` (12 work factor rounds). Raw passwords and hashes are never returned across API payloads.
-
-* **Session Tokens**: Upon authentication, the server generates a JSON Web Token (JWT) signed with `HS256`, encoding user ID, email, role, and expiration timestamp (24-hour lifetime).
-
-* **Transport Security**: The JWT is delivered in both an `Authorization: Bearer <token>` header and an `httpOnly`, `SameSite=Lax` cookie (`freightquote_session`), defending against Cross-Site Scripting (XSS) and token exfiltration.
-
-### Input Validation Rules
-
-All signup and profile modification endpoints enforce strict regular expression checks:
-
-* **Email Validation**: Must strictly follow RFC structure requiring at least 2 alphanumeric characters before the `@`, at least 2 characters in the domain name, and at least 2 characters in the top-level domain (`^[a-zA-Z0-9_.+-]{2,}@[a-zA-Z0-9-]{2,}\.[a-zA-Z0-9-.]{2,}$`).
-
-* **Username Validation**: Minimum 3 characters, alphanumeric and underscore only (`^[a-zA-Z0-9_]{3,30}$`).
-
-* **Password Strength**: Minimum 8 characters, containing at least one uppercase letter, one lowercase letter, one digit, and one special symbol (`[!@#$%^&*(),.?":{}|<>]`).
-
-### Enterprise Lockout Policy & Security Hardening
-
-To prevent brute-force credential stuffing and password exhaustion attacks, `auth.py` and `hardening.py` enforce a dual-tier lockout mechanism tracked in the `auth_lockouts` table:
-
+### Step 3: Access the Portal
+When the final notebook cell finishes executing, it prints:
+```text
+FreightQuote AI is running at: https://8000-m-s-...colab.dev/
 ```
-[Failed Login Attempt]
-         |
-         v
-+-------------------------------------------------------+
-| 3 Consecutive Failed Attempts within 15-minute window |
-+-------------------------------------------------------+
-         |
-         v
-[Tier 1: Temporary Lockout] --> Account disabled for 300 seconds (5 minutes).
-         |
-         +--> Reset on successful login before 3 failures.
-         |
-         v
-+-------------------------------------------------------+
-| 5 Cumulative Temporary Lockouts                      |
-+-------------------------------------------------------+
-         |
-         v
-[Tier 2: Permanent Lockout] --> Account permanently disabled (locked = 1).
-                                Requires an Administrator to unlock via Admin Dashboard.
+Click the link to open the live dashboard. If Google Colab port forwarding is blocked by your network, the cell automatically initializes an **ngrok** tunnel.
 
 
+---
+
+## 4. Role-Based Access Control (RBAC)
+
+The platform implements 5 distinct operational roles defined in `rbac.py` and strictly enforced by `need(ctx, capability)` on every API route and page:
+
+| Role | Operational Scope | Key Privileges |
+|---|---|---|
+| **Admin** | Platform operator | Full access to all 7 pages, quote creation, storm injection, user provisioning, role promotion, account locking, and audit logs. |
+| **Operations Manager** | Logistics & dispatch lead | Access to Route AI, Carriers, Weather Risk, Customs, and Copilot; can trigger agent execution cycles and voyage re-routing; cannot manage users. |
+| **Freight Broker** | Commercial pricing lead | Access to AI Copilot, Spot Quotes (create & view), Carriers, and Margin Intelligence; cannot inject storms or edit customs rules. |
+| **Auditor** | Compliance & oversight reviewer | Comprehensive read-only access to all operational and financial pages; cannot generate quotes or execute agents. |
+| **Customer** | External shipper | Scoped strictly to their own account quotes and shipments (`WHERE customer_id=?`); internal costs, margins, and agent tickets are hidden. |
+
+### Page Access Matrix
+
+| Role | AI Copilot | Route AI | Spot Quotes | Carriers | Weather Risk | Margin | Customs | Run Agents | Users / Admin |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Admin** | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| **Operations Manager** | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ | ✓ | ✗ |
+| **Freight Broker** | ✓ | ✗ | ✓ | ✓ | ✗ | ✓ | ✗ | ✗ | ✗ |
+| **Auditor** | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✗ | ✗ |
+| **Customer** | ✓ | ✗ | ✓ *(own)* | ✗ | ✗ | ✗ | ✗ | ✗ | ✗ |
+
+> **Server-Side Enforcement**: Hiding menu tabs is insufficient for security. Directly requesting a restricted route (e.g. `GET /api/page/admin` or `POST /api/run_agent`) evaluates `need(ctx, capability)` and immediately responds with **HTTP 403 Forbidden**.
+
+---
+
+## 5. Profile Page 
+
+Accessible to all authenticated users via the sidebar:
+* **Account Overview Card**: Displays account username, email, active role badge, unique Customer ID (`USR-xxxx`), joined timestamp, and last login time.
+* **Credential Self-Service**: Allows users to update their display username and update their password.
+* **Password Verification Safeguard**: Updating credentials requires verifying the existing password first and enforces Milestone 2 complexity rules on the new password.
+* **Security Notice**: Explicitly ensures that passwords and cryptographic hashes are never displayed in the DOM or returned in JSON responses.
+
+---
+
+## 6. Admin Dashboard 
+
+Restricted exclusively to the **Admin** role via `need(ctx, "users")`:
+* **KPI Metrics**: Real-time summary cards displaying **Total Users**, **Locked Users**, **Administrators**, and user counts broken down by operational role.
+* **Add New User Form**: Dedicated creation form (Email, Username, Temporary Password, Role). "Admin" is omitted from the role selector to prevent accidental privilege escalation.
+* **User Management Table**:
+  * Displays Email, Username, Role dropdown, Account Status (`Active` or `Inactive`), Created Date, Last Login, and Actions.
+  * **Role Promotion / Demotion**: Role changes update dynamically in SQLite and write an entry to the audit log. The primary Administrator cannot be demoted.
+  * **Lock / Unlock**: Immediately sets `account_status = 'inactive'` or `'active'`. Locked users have their JWT session invalidated on their very next request.
+  * **Delete User**: Protected by confirmation. An Admin cannot delete or lock their own active account, and the last remaining Admin can never be deleted.
+* **Activity Audit Log**: Displays the latest 50 administrative actions recorded in the database, including timestamp (UTC), actor, action type, target account, and metadata details.
+
+---
+
+## 7. Fine-Tuned AI Copilot (SQL-Backed)
+
+The AI Copilot operates deterministically through SQL queries without external LLM dependencies, eliminating hallucinations and ensuring zero factual divergence.
+
+### Tested Question Patterns & Execution Table
+
+| # | Question Pattern | Role Access | Executed SQL Query | Sample Output |
+|---|---|---|---|---|
+| 1 | `"which carrier is cheapest to Rotterdam"` | Admin, Broker, Auditor, Customer | `SELECT s.carrier, ROUND(AVG(q.final_price),2) AS avg_quote_price, COUNT(*) AS quote_count FROM freight_quotes q JOIN shipments s ON s.shipment_id=q.shipment_id WHERE lower(s.dest_port) LIKE ? AND s.carrier IS NOT NULL GROUP BY s.carrier ORDER BY avg_quote_price ASC LIMIT 10` | Lowest average quoted price for **Rotterdam**: **CMA CGM** ($3,600.00 avg). |
+| 2 | `"quotes below 10% margin"` | Admin, Broker, Auditor | `SELECT quote_id, shipment_id, carrier, final_price, margin_pct, status FROM freight_quotes WHERE margin_pct < ? ORDER BY margin_pct ASC LIMIT 50` | Found **2** quotes below 10% profit margin. |
+| 3 | `"how many shipments are on customs hold"` | Admin, Ops Mgr, Auditor | `SELECT shipment_id, origin_port, dest_port, carrier, status, eta FROM shipments WHERE lower(status) LIKE '%customs%hold%' ORDER BY eta LIMIT 50` | Found **2** shipments currently on customs hold. |
+| 4 | `"which ports are most congested"` | Admin, Ops Mgr, Broker, Auditor | `SELECT port_name, country, region, congestion_index, avg_dwell_days FROM ports ORDER BY congestion_index DESC LIMIT 10` | Top **5** congested ports ranked by index (highest: Shanghai, CI 4.2). |
+| 5 | `"show storms near the Red Sea"` | Admin, Ops Mgr, Auditor | `SELECT port_name, current_severity, forecast, wind_speed, wave_height FROM weather_risks WHERE lower(port_name) LIKE ? OR lower(forecast) LIKE ? ORDER BY current_severity DESC LIMIT 20` | Weather and storm records matching **Red Sea**: **1** row found. |
+| 6 | `"which carrier is most reliable on-time"` | Admin, Ops Mgr, Broker, Auditor | `SELECT name, rating, on_time_pct, avg_cost_index, risk_level FROM carriers ORDER BY on_time_pct DESC LIMIT 10` | Top carriers ranked by on-time delivery. Best: **Maersk Line** (92.5%). |
+| 7 | `"which carrier has lowest cost index"` | Admin, Broker, Auditor | `SELECT name, rating, on_time_pct, avg_cost_index, risk_level FROM carriers ORDER BY avg_cost_index ASC LIMIT 10` | Top carriers with lowest cost index. Lowest: **Evergreen** (0.98). |
+| 8 | `"how many shipments are delayed"` | Admin, Ops Mgr, Auditor | `SELECT shipment_id, origin_port, dest_port, carrier, status, predicted_delay_risk, eta FROM shipments WHERE lower(status) LIKE '%delay%' OR predicted_delay_risk > 0.6 ORDER BY predicted_delay_risk DESC LIMIT 50` | Found **3** shipments marked delayed or with high delay risk. |
+| 9 | `"which shipments are heaviest"` | Admin, Ops Mgr, Auditor | `SELECT shipment_id, origin_port, dest_port, carrier, weight_kg, status FROM shipments ORDER BY weight_kg DESC LIMIT 10` | Top heaviest shipments in transit (Heaviest: **SHP-104**, 42,000 kg). |
+| 10 | `"which customers have highest credit risk"` | Admin, Broker, Auditor | `SELECT customer_id, name, industry, priority_tier, credit_risk FROM customers ORDER BY credit_risk DESC LIMIT 10` | Customers ranked by credit risk (Highest: **Vortex Chemicals**, score 0.68). |
+| 11 | `"how many quote requests are pending"` | Admin, Broker, Auditor | `SELECT req_id, ts, origin, dest, cargo, weight_t, status FROM quote_requests WHERE lower(status)='pending' OR quote_id IS NULL ORDER BY req_id DESC LIMIT 50` | Found **1** pending quote requests awaiting pricing. |
+| 12 | `"what are the most expensive quotes"` | Admin, Broker, Auditor | `SELECT quote_id, shipment_id, customer_id, carrier, final_price, margin_pct, status FROM freight_quotes ORDER BY final_price DESC LIMIT 10` | Top highest priced freight quotes (Highest: **QTE-103**, $5,100.00). |
+| 13 | `"which vessels are moving fastest"` | Admin, Ops Mgr, Auditor | `SELECT shipment_id, route_name, lat, lon, progress, speed_kn FROM vessels WHERE speed_kn > 0 ORDER BY speed_kn DESC LIMIT 10` | Fastest active vessels underway (Fastest: **SHP-104**, 21.0 knots). |
+| 14 | `"what are the highest customs duties"` | Admin, Ops Mgr, Auditor | `SELECT chapter, goods, duty_pct, docs, restricted FROM customs_rules ORDER BY duty_pct DESC LIMIT 20` | Tariff rates across commodities (Highest: **Organic chemicals**, 12.0%). |
+| 15 | `"show critical agent alerts"` | Admin, Ops Mgr, Auditor | `SELECT action_id, ts, type, target, severity, status, owner, detail FROM agent_actions WHERE status IN ('open', 'proposed') ORDER BY CASE severity WHEN 'Critical' THEN 0 WHEN 'Warning' THEN 1 ELSE 2 END, action_id DESC LIMIT 20` | Found **2** active agent action tickets. |
+| 16 | `"how many shipments per carrier"` | Admin, Ops Mgr, Broker, Auditor | `SELECT carrier, COUNT(*) AS shipment_count, ROUND(AVG(weight_kg), 1) AS avg_weight_kg FROM shipments WHERE carrier IS NOT NULL GROUP BY carrier ORDER BY shipment_count DESC` | Shipment distribution across carriers. |
+| 17 | `"which origin ports have most shipments"` | Admin, Ops Mgr, Broker, Auditor | `SELECT origin_port, COUNT(*) AS departure_count FROM shipments GROUP BY origin_port ORDER BY departure_count DESC LIMIT 10` | Top origin departure ports by volume. |
+| 18 | `"which carrier gives highest margin"` | Admin, Broker, Auditor | `SELECT carrier, ROUND(AVG(margin_pct), 2) AS avg_margin_pct, COUNT(*) AS quote_count FROM freight_quotes WHERE carrier IS NOT NULL GROUP BY carrier ORDER BY avg_margin_pct DESC LIMIT 10` | Average profit margin by carrier across all quotes. |
+| 19 | `"show shipments by Maersk"` | Admin, Ops Mgr, Broker, Auditor | `SELECT shipment_id, origin_port, dest_port, carrier, status, eta FROM shipments WHERE lower(carrier) LIKE ? ORDER BY eta LIMIT 50` | Found **1** shipments assigned to **Maersk**. |
+| 20 | `"which ports have longest dwell times"` | Admin, Ops Mgr, Broker, Auditor | `SELECT port_name, country, region, avg_dwell_days, congestion_index FROM ports ORDER BY avg_dwell_days DESC LIMIT 10` | Top ports by average dwell days (Longest: Shanghai Port, 5.1 days). |
+
+### Typographical & Wording Resilience
+Questions pass through `_normalise_question()` to resolve misspellings and conversational variations before matching:
+* **Port Typo Correction**: `rotterdm`, `singapor`, `shanghi` → `rotterdam`, `singapore`, `shanghai`.
+* **Carrier Typo Correction**: `maerskk`, `hapagg`, `evergren` → `maersk`, `hapag-lloyd`, `evergreen`.
+* **Operational Keyword Mapping**: `cheepest` → `cheapest`, `conjestion` → `congestion`, `custons` → `customs`, `stoms` → `storms`.
+* **Polite Out-of-Scope Fallback**: For questions outside the maritime operational database, Copilot responds politely and provides three valid suggested prompts.
 
 
-
-```
-
-* **Unified Error Messages**: To prevent username harvesting and timing attacks, the server returns the identical error response: `Invalid email or password.` regardless of whether the email exists or the password was incorrect.
-
-* **Immediate Token Revocation**: When an administrator locks a user or changes their role, all existing JWT tokens are immediately invalidated because `user_of()` re-validates the user's `locked` status and role in SQLite on every incoming request.
-
-### Dual-Path Account Recovery Flow
-
-Users who lose their credentials can recover their accounts through two independent mechanisms:
-
-1. **Security Question & Answer**:
-
-   * Configurable during initial signup or within the Profile page.
-
-   * The security answer is case-folded, stripped of whitespace, and hashed with `bcrypt`, guaranteeing that answers are not visible even to database administrators.
-
-2. **One-Time Password (OTP) via Email**:
-
-   * Generates a cryptographically random 6-digit numeric OTP with a 5-minute time-to-live (TTL).
-
-   * Rate-limited to 1 request per 60 seconds per account, with a maximum of 5 verification attempts.
-
-   * Delivered via TLS-encrypted SMTP (Gmail App Password) or logged to the secure server console in local offline environments.
-
-## 4. User Profile Management
-
-Every authenticated user has access to a dedicated **Profile Page** (`/profile`):
-
-* **Account Overview**: Displays account metadata including Username, Registered Email, System Role, Account Created Timestamp, and Last Active Login Timestamp.
-
-* **Username Modification**: Enables self-service updating of the display username, verified against uniqueness constraints.
-
-* **Password Rotation**: Requires the user to enter their current password, validated against `bcrypt`, before accepting a new password adhering to the complexity rules.
-
-* **Security Question Management**: Allows users to select from standard security questions (e.g., *"What was the name of your first logistics manager?"*, *"What was your childhood street name?"*) and set a cryptographically hashed answer.
-
-* **Privacy Assurance**: Passwords and cryptographic hashes are strictly scrubbed from the profile serialization model.
-
-## 5. Role-Based Access Control (RBAC) Architecture
-
-FreightQuote AI implements a 5-role enterprise authorization model. Permissions are enforced **server-side** at the API gateway layer (`server.py`, `rbac.py`), guaranteeing that UI tampering or direct URL navigation cannot bypass security boundaries.
-
-### Five Distinct System Roles
-
-1. **Admin (`Admin`)**: Platform owner with unrestricted access across operational pipelines, carrier financials, system configuration, user provisioning, role assignments, and security audit logs.
-
-2. **Operations Manager (`Operations Manager`)**: Logistics coordinator managing route planning, dispatch optimization, carrier performance evaluation, customs clearance, and weather-driven reroutes. Restricted from commercial margins and user administration.
-
-3. **Freight Broker (`Freight Broker`)**: Commercial sales agent authorized to generate customer spot quotes, view margin calculations, inspect freight tiers, and manage customer shipments. Prohibited from modifying customs rules or system administration.
-
-4. **Auditor (`Auditor`)**: Compliance and governance inspector with read-only visibility into operational logs, customs holds, carrier safety metrics, and quote histories. Barred from dispatching quotes or mutating users.
-
-5. **Customer (`Customer`)**: External shipper scoped exclusively to their own account. Can request new spot quotes, track their assigned shipments, and interact with the AI Copilot for their specific cargo. Completely isolated from internal carrier metrics, margins, and operational agents.
-
-### Complete Page Access & Capability Matrix
-
-| Page ID | Display Page Name | Admin | Operations Manager | Freight Broker | Auditor | Customer | Required Capability | 
-| ----- | ----- | ----- | ----- | ----- | ----- | ----- | ----- | 
-| `copilot` | AI Copilot Chat | Allowed | Allowed | Allowed | Allowed | Allowed | `copilot` (Scoped) | 
-| `route` | Agent 1 · Route AI | Allowed | Allowed | Denied | Allowed (Read) | Denied | `routes` | 
-| `quotes` | Agent 2 · Spot Quotes | Allowed | Allowed | Allowed | Allowed (Read) | Allowed (Scoped) | `quotes` | 
-| `carriers` | Agent 3 · Carriers Risk | Allowed | Allowed | Denied | Allowed (Read) | Denied | `carriers` | 
-| `weather` | Agent 4 · Weather Risk | Allowed | Allowed | Denied | Allowed (Read) | Denied | `weather` | 
-| `margin` | Agent 5 · Margin Tiers | Allowed | Denied | Allowed | Allowed (Read) | Denied | `margin` | 
-| `customs` | Agent 6 · Customs Rules | Allowed | Allowed | Denied | Allowed (Read) | Denied | `customs` | 
-| `profile` | User Profile Settings | Allowed | Allowed | Allowed | Allowed | Allowed | `profile` | 
-| `admin` | Admin User Management | Allowed | Denied | Denied | Denied | Denied | `users` | 
-
-### Server-Side Enforcement Mechanisms
-
-* **Menu Rendering (`menu_for(user)`)**: Dynamically prunes navigation menus based on `ROLE_MENU[role]`.
-
-* **API Guard (`need(ctx, capability)`)**: Evaluates `ROLE_CAPS[role]`. If the capability is absent, raises an immediate `HTTP 403 Forbidden` with payload `{"detail": "Forbidden: role '<role>' lacks capability '<capability>'"}`.
-
-* **Direct Route Protection**: Attempting to invoke `GET /api/page/{page_id}` or `GET /api/detail/{entity_id}` directly bypasses client UI checks and triggers server-side validation against `ROLE_MENU`.
-
-* **Tenant Data Isolation (Customer Scoping)**:
-
-  * Users with the `Customer` role have a non-null `customer_id` assigned in `users`.
-
-  * Database queries across quote history and shipment tracking automatically append `WHERE customer_id = :customer_id`, preventing cross-customer data leakage.
+---
+### Collaborators
+* Harika Gollapelli
+* Smruti Ranjan Das
+* Sneha Tripathi
