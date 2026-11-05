@@ -166,19 +166,13 @@ Questions pass through `_normalise_question()` to resolve misspellings and conve
 
 ---
 
-## 8. Team Roles & Responsibilities
+## 👥 Project Collaborators
 
-| Team Member | Module / Domain | Key Responsibilities & Delivered Features |
-|---|---|---|
-| **Gowri Alekya Peddimsetti** | **UI & Login** | • Milestone 1 authentication integration (Signup, Signin, Password Recovery via Security Question & Email OTP)<br>• Design system overhaul (CSS variables, light/dark mode switch, mobile responsive layout & hamburger toggle)<br>• Animated maritime glassmorphic portal, interactive cargo ship radar SVG icon with sonar ping wave<br>• Added roles option in signup page |
-| **Smruti Ranjan Das** | **Dashboard** | • Dedicated Admin Dashboard (`#admin`) restricted exclusively to Admin role via `need(ctx, "users")`<br>• Real-time KPI summary cards (Total Users, Locked/Inactive Users, Administrators, Users by Role)<br>• User management table with dynamic status badges, role promote/demote dropdown, instant lock/unlock toggles, and safe deletion confirmation<br>• Activity audit log table displaying the latest 50 administrative events (who, what, when, target, details)<br>• User Profile page (`#profile`) with metadata overview and current-password verified credential updates |
-| **Harika Gollapelli** | **Roles & RBAC** | • 5-tier Role-Based Access Control architecture (`Admin`, `Operations Manager`, `Freight Broker`, `Auditor`, `Customer`) in `rbac.py`<br>• Server-side capability-based authorization (`ROLE_CAPS`, `ROLE_MENU`) with `need(ctx, capability)` raising HTTP 403 Forbidden<br>• Page Access Matrix enforcement preventing direct URL bypass (`/api/page/{id}`)<br>• Customer data isolation scoping quotes and shipments by `customer_id`<br>• Role hierarchy rules (preventing self-locking/self-deletion, protecting the last Admin, and restricting Admin assignment during user creation) |
-| **Sneha Tripathi** | **AI Copilot** | • Fine-tuned conversational query engine in `analyst.py` and `qa.py` with 20+ maritime freight question patterns<br>• 100% deterministic SQL-backed execution ensuring zero hallucination without external LLM dependencies<br>• Typo and wording normalization engine (`_normalise_question`) correcting port names, carrier codes, and operational jargon<br>• Full query transparency displaying executed SQL statements and returned row counts<br>• Polite out-of-scope fallback responses with 3 role-appropriate suggestions and strict RBAC data filtering |
+The project is developed collaboratively, with each team member contributing to different modules and functionalities.
 
----
-
-### Collaborators
-* Gowri Alekya Peddimsetti
-* Harika Gollapelli
-* Smruti Ranjan Das
-* Sneha Tripathi
+| S.No | Collaborator Name        | Role / Responsibility                 |
+| :--: | ------------------------ | ------------------------------------- |
+|   1  | Gollapelli Harika        | RBAC Implementation                   |
+|   2  | Gowri Alekya Peddimsetti | UI Development & Login Authentication |
+|   3  | Smruti Ranjan Das        | Dashboard Development                 |
+|   4  | Sneha Tripathi           | AI Copilot Development                |
