@@ -91,7 +91,7 @@ Demo sign-ins (demo mode only) are listed on the login screen. A role without th
 | Seed websites crawled | 265 |
 | PDFs / files saved to `MyDrive/FreightQuote_AI/rag_pdfs/` | 470 (target 150+) |
 | Distinct documents in the index | 485 |
-| Chunks loaded by the app (Admin → System check → Knowledge base) | 15892 |
+| Chunks loaded by the app (Admin → System check → Knowledge base) | 231 chunks indexed |
 
 
 ### 6.2 Copilot fine-tuning
