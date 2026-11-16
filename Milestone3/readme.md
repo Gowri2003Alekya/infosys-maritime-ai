@@ -13,7 +13,7 @@ FreightQuote AI is an agentic quoting and fleet-watch platform for sea freight. 
 | File | Purpose |
 |---|---|
 | `FreightQuoteAI_RAG_Builder_FINAL.ipynb` | Crawls websites and PDFs and builds the knowledge base. **Run first.** |
-| `FreightQuote_AI_Final_Code.ipynb` | The complete app: writes all modules, starts the server, prints the public link. |
+| `Milestone3_Final.ipynb` | The complete app: writes all modules, starts the server, prints the public link. |
 | `taught_questions.csv` | 67 questions taught to the Copilot (`question, answer, keywords`). |
 | `FreightQuote_AI_Milestone3.pptx` / `.pdf` | 5-minute presentation, 6 slides. |
 | `Screenshots/` | Evidence screenshots listed in section 8. |
