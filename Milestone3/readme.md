@@ -89,9 +89,9 @@ Demo sign-ins (demo mode only) are listed on the login screen. A role without th
 | Measure | Value |
 |---|---|
 | Seed websites crawled | 265 |
-| PDFs / files saved to `MyDrive/FreightQuote_AI/rag_pdfs/` | **[fill in]** (target 150+) |
-| Distinct documents in the index | **[fill in]** |
-| Chunks loaded by the app (Admin → System check → Knowledge base) | **[fill in]** |
+| PDFs / files saved to `MyDrive/FreightQuote_AI/rag_pdfs/` | 470 (target 150+) |
+| Distinct documents in the index | 485 |
+| Chunks loaded by the app (Admin → System check → Knowledge base) | 15892 |
 
 
 ### 6.2 Copilot fine-tuning
@@ -138,23 +138,26 @@ JWT login, Profile page (with profile picture), role-based access with 403 refus
 
 2. Teach Copilot showing 50 / 50
 
-
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/8f88989c88941ceaa44d5ea0bfb61acd122092a9/Milestone3/Screenshots/teachcopilot.jpeg)
 
 4. Copilot answer with sources `[1] [2]`
 
-<img src="Screenshots/copilot.jpeg" width="650">
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/copilotanwer.jpeg)
 
 4. Each agent simulator, before and after
 
 | Agent | Before | After |
 |---|---|---|
-| Route | <img src="Screenshots/sim_route_before.png.png" width="420"> | <img src="Screenshots/sim_route_after.png.png" width="420"> |
-| Quote | <img src="Screenshots/sim_quote_before.png.png" width="420"> | <img src="Screenshots/sim_quote_after.png.png" width="420"> |
-| Carrier | <img src="Screenshots/sim_carrier_before.png.png" width="420"> | <img src="Screenshots/sim_carrier_after.png.png" width="420"> |
-| Weather | <img src="Screenshots/sim_weather_before.png.png" width="420"> | <img src="Screenshots/sim_weather_after.png.png" width="420"> |
-| Customs | <img src="Screenshots/sim_customs_before.png.png" width="420"> | <img src="Screenshots/sim_customs_after.png.png" width="420"> |
+| Route | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_route_before.png) | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/route_after.jpeg) |
+| Quote | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_quote_before.png) | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/quotes_after.jpeg) |
+| Carrier | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_carrier_before.png) | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/carriers_after.jpeg) |
+| Weather | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_weather_before.png) | <img src="Screenshots/sim_weather_after.png.png" width="420"> |
+| Customs | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_customs_before.png) | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/customs_after.jpeg) |
 
 5. Admin → Copilot insights, before and after teaching
-6. Admin → System check
 
-<img src="Screenshots/command_centre.jpeg" width="650">
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/copilotinsights.jpeg)
+
+7. Admin → System check
+
+
