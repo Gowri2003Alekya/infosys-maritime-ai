@@ -151,7 +151,7 @@ JWT login, Profile page (with profile picture), role-based access with 403 refus
 | Route | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_route_before.png) | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/route_after.jpeg) |
 | Quote | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_quote_before.png) | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/quotes_after.jpeg) |
 | Carrier | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_carrier_before.png) | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/carriers_after.jpeg) |
-| Weather | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_weather_before.png) | <img src="Screenshots/sim_weather_after.png.png" width="420"> |
+| Weather | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_weather_before.png) | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/308a61bbbca75bca9604cf8f81a49eb26e44f2b9/Milestone3/Screenshots/weather_after.jpeg) |
 | Customs | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/sim_customs_before.png) | ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/customs_after.jpeg) |
 
 5. Admin → Copilot insights, before and after teaching
@@ -160,4 +160,15 @@ JWT login, Profile page (with profile picture), role-based access with 403 refus
 
 7. Admin → System check
 
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/9f29ca04cb37b2e43f638eb0006e75fca05b0515/Milestone3/Screenshots/systemcheck.jpeg)
 
+## 👥 Project Collaborators
+
+The project is developed collaboratively, with each team member contributing to different modules and functionalities.
+
+| S.No | Collaborator Name        | Role / Responsibility                 |
+| :--: | ------------------------ | ------------------------------------- |
+|   1  | Gowri Alekya Peddimsetti | RAG & Knowledge Base                  |
+|   2  | Mehak Rana               | AI Copilot                            |
+|   3  | Ankit Kumar              | Agent Simulators                      |
+|   4  | Smruti Ranjan Das        | Application Integration & Security    |
