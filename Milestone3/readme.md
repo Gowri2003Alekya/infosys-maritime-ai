@@ -140,7 +140,7 @@ JWT login, Profile page (with profile picture), role-based access with 403 refus
 
 ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/8f88989c88941ceaa44d5ea0bfb61acd122092a9/Milestone3/Screenshots/teachcopilot.jpeg)
 
-4. Copilot answer with sources `[1] [2]`
+3. Copilot answer with sources `[1] [2]`
 
 ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/copilotanwer.jpeg)
 
@@ -158,7 +158,7 @@ JWT login, Profile page (with profile picture), role-based access with 403 refus
 
 ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/copilotinsights.jpeg)
 
-7. Admin → System check
+6. Admin → System check
 
 ![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/9f29ca04cb37b2e43f638eb0006e75fca05b0515/Milestone3/Screenshots/systemcheck.jpeg)
 
