@@ -134,10 +134,13 @@ JWT login, Profile page (with profile picture), role-based access with 403 refus
 
 1. RAG notebook: source count and chunk count (last cell)
 
-<img src="Screenshots/rag.jpeg" width="650">
+![image_alt](https://github.com/Gowri2003Alekya/infosys-maritime-ai/blob/294bf735a3960f4c85742a4958b70c0a9afeb38e/Milestone3/Screenshots/rag.jpeg)
 
 2. Teach Copilot showing 50 / 50
-3. Copilot answer with sources `[1] [2]`
+
+
+
+4. Copilot answer with sources `[1] [2]`
 
 <img src="Screenshots/copilot.jpeg" width="650">
 
